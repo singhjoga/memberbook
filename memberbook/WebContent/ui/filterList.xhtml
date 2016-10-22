@@ -1,0 +1,25 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:p="http://primefaces.org/ui">
+	<h:form id="frmFilterList" >
+	<p:toolbar>
+		<f:facet name="left">
+
+			<p:commandButton value="Add" actionListener="#{filterListView.actionShowAddDialog}">
+				<p:ajax event="dialogReturn" update="frmFilterList:filterList" />
+			</p:commandButton>
+			<p:commandButton value="Edit" actionListener="#{filterListView.actionShowEditDialog}">
+				<p:ajax event="dialogReturn" update="frmFilterList:filterList,growl" />
+			</p:commandButton>
+			<p:commandButton value="Delete" actionListener="#{filterListView.actionDelete}" update="frmFilterList:filterList,growl">
+			</p:commandButton>
+		</f:facet> 
+	</p:toolbar>
+	<p:dataTable var="c" value="#{filterListView.list}" id="filterList" selectionMode="single" selection="#{filterListView.selected}"
+		rowKey="#{c.id}" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+		paginator="true" rows="20" scrollable="true" paginatorPosition="bottom" dblClickSelect="true">
+		<p:column headerText="Name" style="width:150px;">
+			<h:outputText value="#{c.name}" />
+		</p:column>
+	</p:dataTable>
+	</h:form>
+</ui:composition>

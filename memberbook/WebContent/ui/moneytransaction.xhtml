@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<h:head>
+	<title>Transaction Details</title>
+	<style type="text/css">
+.ui-widget {
+	font-size: 90%;
+}
+</style>
+</h:head>
+
+<h:body>
+	<h:form>
+		<p:growl id="growl" sticky="true" showDetail="true" showSummary="true" />
+		<p:panelGrid id="pnlDetails" style="margin-bottom:10px" styleClass="ui-noborder">
+			<p:row>
+				<p:column>
+					<h:outputLabel for="trDate" value="Date:" />
+				</p:column>
+				<p:column>
+					<p:calendar id="trDate" value="#{moneyTransactionView.tr.trDate}" showOn="button" size="6" />
+				</p:column>
+
+				<p:column>
+					<h:outputLabel for="type" value="Type:" />
+				</p:column>
+				<p:column>
+					<p:selectOneRadio id="type" value="#{moneyTransactionView.tr.trType}">
+						<f:selectItems value="#{moneyTransactionView.typeList}" var="t" itemValue="#{t}" itemLabel="#{t.label}" />
+					</p:selectOneRadio>
+				</p:column>
+			</p:row>
+			<p:row>
+				<p:column>
+					<h:outputLabel for="reason" value="Reason:" />
+				</p:column>
+				<p:column>
+					<p:selectOneMenu id="reason" value="#{moneyTransactionView.tr.reason}" height="170">
+						<f:selectItems value="#{moneyTransactionView.reasonList}" var="r" itemValue="#{r}" itemLabel="#{r.label}"/>
+						<!-- <f:converter converterId="valuedEnumConverter"/>  -->
+					</p:selectOneMenu>
+				</p:column>
+				<p:column>
+					<h:outputLabel for="validTill" value="Valid Till:" />
+				</p:column>
+				<p:column>
+					<p:calendar id="validTill" value="#{moneyTransactionView.tr.validTill}" showOn="button" size="6" />
+				</p:column>
+			</p:row>
+			<p:row>
+				<p:column>
+					<h:outputLabel for="description" value="Description:" />
+				</p:column>
+				<p:column colspan="3">
+					<p:inputText id="description" value="#{moneyTransactionView.tr.description}" size="62" />
+				</p:column>
+			</p:row>
+			<p:row>
+				<p:column>
+					<h:outputLabel for="mode" value="Mode:" />
+				</p:column>
+				<p:column>
+					<p:selectOneRadio id="mode" value="#{moneyTransactionView.tr.mode}">
+						<f:selectItems value="#{moneyTransactionView.modeList}" var="t" itemValue="#{t}" itemLabel="#{t.label}" />
+					</p:selectOneRadio>
+				</p:column>
+				<p:column>
+					<h:outputLabel for="refno" value="Ref.No.:" />
+				</p:column>
+				<p:column>
+					<p:inputText id="refno" value="#{moneyTransactionView.tr.refNo}" />
+				</p:column>
+			</p:row>
+			<p:row>
+				<p:column>
+					<h:outputLabel for="amount" value="Amount:" />
+				</p:column>
+				<p:column colspan="1">
+					<p:inputText id="amount" value="#{moneyTransactionView.tr.amount}" />
+				</p:column>
+				
+				<p:column>
+					<h:outputLabel for="currency" value="Currency:" />
+				</p:column>
+				<p:column colspan="1">
+					<p:selectOneMenu id="currency" value="#{moneyTransactionView.tr.currency}" height="170">
+						<f:selectItems value="#{moneyTransactionView.currencyList}" />
+					</p:selectOneMenu>
+				</p:column>
+				
+			</p:row>
+
+			<p:row>
+				<p:column>
+					<h:outputLabel for="comments" value="Comments:" />
+				</p:column>
+				<p:column colspan="3">
+					<h:inputTextarea id="comments" rows="2" cols="65" value="#{moneyTransactionView.tr.comments}" />
+				</p:column>
+			</p:row>
+		</p:panelGrid>
+		<h:panelGrid style="height:10px" />
+		<p:separator />
+		<div align="center">
+			<p:commandButton value="OK" id="ok" actionListener="#{moneyTransactionView.actionSave}" update="growl" />
+			<p:commandButton value="Cancel" id="cancel" actionListener="#{moneyTransactionView.actionCancel()}" immediate="true" />
+		</div>
+		<!-- <p:commandButton value="Cancel" id="cancel" onclick="window.close()" /> -->
+	</h:form>
+</h:body>
+</html>

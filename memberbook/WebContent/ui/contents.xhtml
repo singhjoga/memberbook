@@ -1,0 +1,20 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:p="http://primefaces.org/ui">
+	<p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" severity="error,warning, fatal" />
+	<p:growl id="growl" sticky="true" life="3000" severity="info" showSummary="true" showDetail="true" />
+
+	<p:panelGrid id="pnlContents" style="border:0;margin:0;padding:0;width:100%">
+		<p:row rendered="#{userSessionContext.contentType eq 'CONTACT'}" style="border:none;margin:0;padding:0">
+			<p:column style="border:none;margin:0;padding:0"><ui:include src="contactlist.xhtml"></ui:include></p:column>
+		</p:row>
+		<p:row rendered="#{userSessionContext.contentType eq 'MAILTEMPLATE'}" style="border:none;margin:0;padding:0">
+			<p:column style="border:none;margin:0;padding:0"><ui:include src="mailTemplateList.xhtml"></ui:include></p:column>
+		</p:row>
+		<p:row rendered="#{userSessionContext.contentType eq 'CONFIG'}" style="border:none;margin:0;padding:0">
+			<p:column style="border:none;margin:0;padding:0"><ui:include src="config.xhtml"></ui:include></p:column>
+		</p:row>
+		<p:row rendered="#{userSessionContext.contentType eq 'FILTER'}" style="border:none;margin:0;padding:0">
+			<p:column style="border:none;margin:0;padding:0"><ui:include src="filterList.xhtml"></ui:include></p:column>
+		</p:row>
+	</p:panelGrid>
+</ui:composition>

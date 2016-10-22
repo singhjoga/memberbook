@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<h:head>
+	<title>Template Details</title>
+	<style type="text/css">
+.ui-widget {
+	font-size: 90%;
+}
+</style>
+</h:head>
+
+<h:body>
+	<h:form id="frmTemplateDetails">
+		<p:growl id="growl" sticky="true" showDetail="true" showSummary="true" />
+		<p:panelGrid id="pnlTemplateDetails" style="margin-bottom:10px" styleClass="ui-noborder">
+			<p:row>
+				<p:column>
+					<h:outputLabel for="name" value="Name:" />
+				</p:column>
+				<p:column>
+					<p:inputText id="name" value="#{mailTemplateView.object.name}" size="25" />
+				</p:column>
+			</p:row>
+			<p:row>
+				<p:column>
+					<h:outputLabel for="subject" value="Subject:" />
+				</p:column>
+				<p:column>
+					<p:inputText id="subject" value="#{mailTemplateView.object.subject}" size="113" />
+				</p:column>
+			</p:row>
+			<p:row>
+				<p:column>
+					<h:outputLabel for="subject" value="Attachments:" />
+    				<p:fileUpload fileUploadListener="#{mailTemplateView.handleFileUpload}" mode="advanced" auto="true" update="frmTemplateDetails" multiple="true"/>
+				</p:column>
+				<p:column>
+					<p:dataGrid value="#{mailTemplateView.object.attachments}" var="a" emptyMessage="" rows="4" columns="2" style="grid">
+						#{a.fileName} 
+						<p:commandLink actionListener="#{mailTemplateView.actionRemoveAttachment}" update="frmTemplateDetails">
+							<f:attribute name="fileName" value="#{a.fileName}"/>
+							<h:outputText value="X"/>
+						</p:commandLink>
+  
+    				</p:dataGrid>
+				</p:column>
+			</p:row>
+			<p:row>
+				<p:column colspan="2" >
+					<p:editor id="text" widgetVar="editorWidget" value="#{mailTemplateView.object.text}" width="960" height="330" style="border:1px;border-style:solid"/>
+				</p:column>
+			</p:row>
+		</p:panelGrid>
+		<h:panelGrid style="height:10px" />
+		<p:separator />
+		<div align="center">
+			<p:commandButton value="OK" id="ok" actionListener="#{mailTemplateView.actionSave}" update="growl" />
+			<p:commandButton value="Cancel" id="cancel" actionListener="#{mailTemplateView.actionCancel()}" immediate="true" />
+		</div>
+	</h:form>
+</h:body>
+</html>

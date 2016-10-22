@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<h:head>
+	<title>System Configuration</title>
+	<style>
+.topAligned {
+	vertical-align: top;
+}
+</style>
+</h:head>
+
+<h:body>
+	<h:form id="frmConfig">
+		<p:growl id="growl" sticky="true" showDetail="true" showSummary="true" />
+		<p:commandButton value="Edit" id="btnEdit" actionListener="#{configView.actionEdit}" update="growl,frmConfig" disabled="#{configView.edit}" />
+		<p:accordionPanel multiple="true">
+			<p:tab title="Memberships">
+				<p:panelGrid id="pnlMemberships" style="margin-bottom:10px;width:100%" styleClass="ui-noborder">
+					<p:row>
+						<p:column>
+							<p:selectBooleanCheckbox id="yearlySubsOn" value="#{configView.config['YEARLY_SUBS_ON']}" disabled="#{configView.readOnly}">
+								<p:ajax event="valueChange" immediate="true" process="@this" update="growl,frmConfig" />
+							</p:selectBooleanCheckbox>
+							<h:outputLabel for="yearlySubsOn" value="Yearly Subscriptions" />
+							<p:panelGrid columnClasses="topAligned" style="margin-left:100px">
+								<p:row>
+									<p:column>
+										<p:panelGrid columns="2" columnClasses="topAligned">
+											<p:outputLabel for="yearlySubsType" value="Start Date:" disabled="#{configView.disableYearlySubsType}" />
+											<p:selectOneRadio label="Start Date:" id="yearlySubsType" value="#{configView.config['YEARLY_SUBS_TYPE']}" layout="grid" columns="1"
+												update="growl,frmConfig" disabled="#{configView.disableYearlySubsType}">
+												<f:selectItem itemLabel="Starts on a fixed day &amp; month" itemValue="YEARLY_START_FIXED_DAY_FIXED_MONTH" />
+												<f:selectItem itemLabel="Starts on a fixed day of any month" itemValue="YEARLY_START_FIXED_DAY_ANY_MONTH" />
+												<f:selectItem itemLabel="Starts on any day &amp; month" itemValue="ANY_START_DAY_ANY_MONTH" />
+												<p:ajax event="valueChange" immediate="true" process="@this" update="growl,frmConfig" />
+											</p:selectOneRadio>
+										</p:panelGrid>
+										<p:panelGrid columns="4">
+											<h:outputLabel for="yearlyFixedDay" value="Day:" disabled="#{configView.disableYearlyDay}" />
+											<p:selectOneMenu id="yearlyFixedDay" value="#{configView.config['YEARLY_FIXED_DAY']}" update="growl,frmConfig"
+												disabled="#{configView.disableYearlyDay}">
+												<f:selectItem itemLabel="Select One" itemValue="" />
+												<f:selectItems value="#{configView.monthDateList}" />
+											</p:selectOneMenu>
+											<h:outputLabel for="yearlyFixedMonth" value="Month:" disabled="#{configView.disableYearlyMonth}" />
+											<p:selectOneMenu id="yearlyFixedMonth" value="#{configView.config['YEARLY_FIXED_MONTH']}" update="growl,frmConfig"
+												disabled="#{configView.disableYearlyMonth}">
+												<f:selectItem itemLabel="Select One" itemValue="" />
+												<f:selectItems value="#{configView.monthNameList}" />
+											</p:selectOneMenu>
+										</p:panelGrid>
+									</p:column>
+									<p:column class="topAligned">
+										<p:panelGrid columns="2" columnClasses="topAligned">
+											<p:outputLabel for="yearlySubsEndDateType" value="End Date:" disabled="#{configView.disableYearlySubsType}" />
+											<p:selectOneRadio id="yearlySubsEndDateType" value="#{configView.config['YEARLY_SUBS_END_DATE_TYPE']}" layout="grid" columns="1"
+												update="growl,frmConfig" disabled="#{configView.disableYearlySubsType}">
+												<f:selectItem itemLabel="Ends one day before the start day" itemValue="YEARLY_END_ONE_DAY_BEFORE_START" />
+												<f:selectItem itemLabel="Ends on the same day as start day" itemValue="YEARLY_END_SAME_DAY" />
+												<p:ajax event="valueChange" immediate="true" process="@this" update="growl,frmConfig" />
+											</p:selectOneRadio>
+										</p:panelGrid>
+									</p:column>
+								</p:row>
+							</p:panelGrid>
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column>
+						<p:separator/>
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column>
+							<p:selectBooleanCheckbox id="monthlySubsOn" value="#{configView.config['MONTHLY_SUBS_ON']}" disabled="#{configView.readOnly}">
+								<p:ajax event="valueChange" immediate="true" process="@this" update="growl,frmConfig" />
+							</p:selectBooleanCheckbox>
+							<h:outputLabel for="monthlySubsOn" value="Monthly Subscriptions" />
+							<p:panelGrid columnClasses="topAligned" style="margin-left:100px">
+								<p:row>
+									<p:column>
+										<p:panelGrid columns="2" columnClasses="topAligned">
+											<p:outputLabel for="monthlySubsType" value="Start Date:" disabled="#{configView.disableMonthlySubsType}" />
+											<p:selectOneRadio label="Start Date:" id="monthlySubsType" value="#{configView.config['MONTHLY_SUBS_TYPE']}" layout="grid" columns="1"
+												update="growl,frmConfig" disabled="#{configView.disableMonthlySubsType}">
+												<f:selectItem itemLabel="Starts on a fixed day" itemValue="MONTHLY_START_FIXED_DAY" />
+												<f:selectItem itemLabel="Starts on any day" itemValue="MONTHLY_START_ANY_DAY" />
+												<p:ajax event="valueChange" immediate="true" process="@this" update="growl,frmConfig" />
+											</p:selectOneRadio>
+										</p:panelGrid>
+										<p:panelGrid columns="2">
+											<h:outputLabel for="monthlyFixedDay" value="Day:" disabled="#{configView.disableMonthlyDay}" />
+											<p:selectOneMenu id="monthlyFixedDay" value="#{configView.config['MONTHLY_FIXED_DAY']}" update="growl,frmConfig"
+												disabled="#{configView.disableMonthlyDay}">
+												<f:selectItem itemLabel="Select One" itemValue="" />
+												<f:selectItems value="#{configView.monthDateList}" />
+											</p:selectOneMenu>
+										</p:panelGrid>
+									</p:column>
+									<p:column class="topAligned">
+										<p:panelGrid columns="2" columnClasses="topAligned">
+											<p:outputLabel for="monthlySubsEndDateType" value="End Date:" disabled="#{configView.disableMonthlySubsType}" />
+											<p:selectOneRadio id="monthlySubsEndDateType" value="#{configView.config['MONTHLY_SUBS_END_DATE_TYPE']}" layout="grid" columns="1"
+												update="growl,frmConfig" disabled="#{configView.disableMonthlySubsType}">
+												<f:selectItem itemLabel="Ends one day before the start day" itemValue="MONTHLY_END_ONE_DAY_BEFORE_START" />
+												<f:selectItem itemLabel="Ends on the same day as start day" itemValue="MONTHLY_END_SAME_DAY" />
+												<p:ajax event="valueChange" immediate="true" process="@this" update="growl,frmConfig" />
+											</p:selectOneRadio>
+										</p:panelGrid>
+									</p:column>
+								</p:row>
+							</p:panelGrid>
+						</p:column>
+					</p:row>
+				</p:panelGrid>
+			</p:tab>
+			<p:tab title="Mailing">
+				<p:panelGrid id="pnlMailing" style="margin-bottom:10px;width:400" styleClass="ui-noborder">
+					<p:row>
+						<p:column>
+							<h:outputLabel for="smtpServer" value="SMTP Server:" />
+						</p:column>
+						<p:column>
+							<p:inputText id="smtpServer" value="#{configView.config['SMTP_SERVER']}" size="25" disabled="#{configView.readOnly}" />
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column>
+							<h:outputLabel for="smtpUser" value="SMTP User:" />
+						</p:column>
+						<p:column>
+							<p:inputText id="smtpUserName" value="#{configView.config['SMTP_USER']}" size="25" disabled="#{configView.readOnly}" />
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column>
+							<h:outputLabel for="smtpPassword" value="SMTP Password:" />
+						</p:column>
+						<p:column>
+							<p:inputText id="smtpPassword" value="#{configView.config['SMTP_PASSWORD']}" size="25" disabled="#{configView.readOnly}" />
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column>
+							<h:outputLabel for="replyEmail" value="Reply Email:" />
+						</p:column>
+						<p:column>
+							<p:inputText id="replyEmail" value="#{configView.config['REPLY_EMAIL']}" size="25" disabled="#{configView.readOnly}" />
+						</p:column>
+					</p:row>
+
+				</p:panelGrid>
+			</p:tab>
+		</p:accordionPanel>
+
+		<h:panelGrid style="height:10px" />
+		<p:separator />
+		<div align="center">
+			<p:commandButton value="OK" id="ok" actionListener="#{configView.actionSave}" update="growl,frmConfig" disabled="#{configView.readOnly}" />
+			<p:commandButton value="Cancel" id="cancel" actionListener="#{configView.actionCancel()}" immediate="true" disabled="#{configView.readOnly}"
+				update="growl,frmConfig" />
+		</div>
+	</h:form>
+</h:body>
+</html>

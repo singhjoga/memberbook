@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<h:head>
+	<title>Filter Details</title>
+	<style type="text/css">
+.ui-widget {
+	font-size: 90%;
+}
+.labelcolumn {
+	text-align:right;
+}
+.ui-panelgrid .ui-panelgrid-cell {
+	padding:4px;
+}
+</style>
+</h:head>
+
+<h:body>
+	<h:form>
+		<p:growl id="growl" sticky="true" showDetail="true" showSummary="true" />
+		<p:panelGrid id="pnlFilterDetails" style="margin-bottom:10px;padding:2px" styleClass="ui-noborder">
+			<p:row>
+				<p:column styleClass="labelcolumn">
+					<p:outputLabel for="name" value="Filter Name:" />
+				</p:column>
+				<p:column colspan="3">
+					<p:inputText id="name" value="#{filterView.object.name}" size="90" />
+				</p:column>
+			</p:row>
+			<p:row>
+				<p:column styleClass="labelcolumn">
+					<p:outputLabel for="title" value="Title:" />
+				</p:column>
+				<p:column>
+					<p:selectManyCheckbox id="title" value="#{filterView.selectedTitles}" layout="grid" columns="2">
+						<f:selectItem itemLabel="Mr." itemValue="Mr." />
+						<f:selectItem itemLabel="Mrs." itemValue="Mrs." />
+						<f:selectItem itemLabel="Ms." itemValue="Ms." />
+						<f:selectItem itemLabel="Dr." itemValue="Dr." />
+						<f:selectItem itemLabel="Prof." itemValue="Prof." />
+					</p:selectManyCheckbox>
+				</p:column>
+				<p:column styleClass="labelcolumn">
+					<p:outputLabel for="contactType" value="Type:" />
+				</p:column>
+				<p:column>
+					<p:selectManyCheckbox id="contactType" value="#{filterView.selectedContactTypes}" layout="grid" columns="2">
+						<f:selectItems value="#{filterView.contactTypeList}" />
+					</p:selectManyCheckbox>
+				</p:column>
+			</p:row>
+			<p:row>
+			</p:row>
+			<p:row>
+				<p:column styleClass="labelcolumn">
+					<p:outputLabel for="firstName" value="First Name:" />
+				</p:column>
+				<p:column>
+					<p:inputText id="firstName" value="#{filterView.object.firstName}" />
+				</p:column>
+				<p:column styleClass="labelcolumn">
+					<p:outputLabel for="lastName" value="Last Name:" />
+				</p:column>
+				<p:column>
+					<p:inputText id="lastName" value="#{filterView.object.lastName}" />
+				</p:column>
+			</p:row>
+			<p:row>
+				<p:column styleClass="labelcolumn">
+					<p:outputLabel for="address1" value="Address 1:" />
+				</p:column>
+				<p:column>
+					<p:inputText id="address1" value="#{filterView.object.address1}" />
+				</p:column>
+				<p:column styleClass="labelcolumn">
+					<p:outputLabel for="address2" value="Address 2:" />
+				</p:column>
+				<p:column>
+					<p:inputText id="address2" value="#{filterView.object.address2}" />
+				</p:column>
+			</p:row>
+			<p:row>
+				<p:column styleClass="labelcolumn">
+					<p:outputLabel for="zipCode" value="Zip Code:" />
+				</p:column>
+				<p:column>
+					<p:inputText id="zipCode" value="#{filterView.object.zipCode}" />
+				</p:column>
+				<p:column styleClass="labelcolumn">
+					<p:outputLabel for="city" value="City:" />
+				</p:column>
+				<p:column>
+					<p:inputText id="city" value="#{filterView.object.city}" />
+				</p:column>
+			</p:row>
+			<p:row>
+				<p:column styleClass="labelcolumn">
+					<p:outputLabel for="countryCode" value="Country:" />
+				</p:column>
+				<p:column colspan="3">
+					<p:selectOneMenu id="countryCode" value="#{filterView.object.countryCode}" height="170">
+						<f:selectItem itemLabel="Select Country" itemValue="" />
+						<f:selectItems value="#{filterView.countryList}" />
+					</p:selectOneMenu>
+				</p:column>
+			</p:row>
+			<p:row>
+				<p:column styleClass="labelcolumn">
+					<p:outputLabel for="phone" value="Phone:" />
+				</p:column>
+				<p:column>
+					<p:inputText id="phone" value="#{filterView.object.phone}" />
+				</p:column>
+				<p:column styleClass="labelcolumn">
+					<p:outputLabel for="email" value="Email:" />
+				</p:column>
+				<p:column>
+					<p:inputText id="email" value="#{filterView.object.email}" />
+				</p:column>
+			</p:row>
+			<p:row>
+				<p:column styleClass="labelcolumn">
+					<p:outputLabel for="renewDateFrom" value="Renew Date From:" />
+				</p:column>
+				<p:column>
+					<p:calendar id="renewDateFrom" value="#{filterView.object.renewDateFrom}" showOn="button" />
+				</p:column>
+				<p:column styleClass="labelcolumn">
+					<p:outputLabel for="renewDateTo" value="Renew Date To:" />
+				</p:column>
+				<p:column>
+					<p:calendar id="renewDateTo" value="#{filterView.object.renewDateTo}" showOn="button" />
+				</p:column>
+			</p:row>
+			<p:row>
+				<p:column styleClass="labelcolumn">
+					<p:outputLabel for="expiryDateFrom" value="Valid Till From:" />
+				</p:column>
+				<p:column>
+					<p:calendar id="expiryDateFrom" value="#{filterView.object.expiryDateFrom}" showOn="button" />
+				</p:column>
+				<p:column styleClass="labelcolumn">
+					<p:outputLabel for="expiryDateTo" value="Valid Till To:" />
+				</p:column>
+				<p:column>
+					<p:calendar id="expiryDateTo" value="#{filterView.object.expiryDateTo}" showOn="button" />
+				</p:column>
+			</p:row>
+			<p:row>
+				<p:column styleClass="labelcolumn">
+					<p:outputLabel for="startDateFrom" value="Start Date From:" />
+				</p:column>
+				<p:column>
+					<p:calendar id="startDateFrom" value="#{filterView.object.startDateFrom}" showOn="button" />
+				</p:column>
+				<p:column styleClass="labelcolumn">
+					<p:outputLabel for="startDateTo" value="Start Date To:" />
+				</p:column>
+				<p:column>
+					<p:calendar id="startDateTo" value="#{filterView.object.startDateTo}" showOn="button" />
+				</p:column>
+			</p:row>
+			<p:row>
+				<p:column styleClass="labelcolumn">
+					<p:outputLabel for="updateDateFrom" value="Update Date From:" />
+				</p:column>
+				<p:column>
+					<p:calendar id="updateDateFrom" value="#{filterView.object.updateDateFrom}" showOn="button" />
+				</p:column>
+				<p:column styleClass="labelcolumn">
+					<p:outputLabel for="updateDateTo" value="Update Date To:" />
+				</p:column>
+				<p:column>
+					<p:calendar id="updateDateTo" value="#{filterView.object.updateDateTo}" showOn="button" />
+				</p:column>
+			</p:row>
+			<p:row>
+				<p:column styleClass="labelcolumn">
+					<p:outputLabel for="updateBy" value="Updated By:" />
+				</p:column>
+				<p:column>
+					<p:inputText id="updateBy" value="#{filterView.object.updateBy}" />
+				</p:column>
+				<p:column styleClass="labelcolumn">
+					<p:outputLabel for="status" value="Status:" />
+				</p:column>
+				<p:column>
+					<p:selectManyCheckbox id="status" value="#{filterView.selectedStatuses}" layout="grid" columns="2">
+						<f:selectItem itemLabel="Deleted" itemValue="D" />
+						<f:selectItem itemLabel="Active" itemValue="A" />
+					</p:selectManyCheckbox>
+				</p:column>
+			</p:row>
+		</p:panelGrid>
+		<h:panelGrid style="height:10px" />
+		<p:separator />
+		<div align="center">
+			<p:commandButton value="OK" id="ok" actionListener="#{filterView.actionSave}" update="growl" />
+			<p:commandButton value="Cancel" id="cancel" actionListener="#{filterView.actionCancel()}" immediate="true" />
+		</div>
+		<!-- <p:commandButton value="Cancel" id="cancel" onclick="window.close()" /> -->
+	</h:form>
+</h:body>
+</html>

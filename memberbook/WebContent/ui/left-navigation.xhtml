@@ -1,0 +1,45 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:p="http://primefaces.org/ui">
+	<h:form id="frmLeftNavigation">
+
+		<p:accordionPanel>
+			<p:tab title="Contacts">
+				<p:panelGrid id="pnlContacts" styleClass="ui-noborder">
+					<p:row>
+						<p:column>
+							<p:commandLink id="lnkShowAll" update="pnlContents" actionListener="#{contactListView.actionShowAll}">
+								<h:outputText value="Show All Contacts" />
+							</p:commandLink>
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column>
+							<p:commandLink id="manageSearchFilters" update="pnlContents" actionListener="#{filterListView.actionShowAll}">
+								<h:outputText value="Manage Search Filters" />
+							</p:commandLink>
+						</p:column>
+					</p:row>
+				</p:panelGrid>
+			</p:tab>
+			<p:tab title="Administration">
+				<p:panelGrid id="pnlMailing" styleClass="ui-noborder">
+					<p:row>
+						<p:column>
+							<p:commandLink id="lnkMailTemplates" update="pnlContents" actionListener="#{mailTemplateListView.actionShowAll}">
+								<h:outputText value="Mail Templates" />
+							</p:commandLink>
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column>
+							<p:commandLink id="lnkCOnfig" update="pnlContents" actionListener="#{configView.showConfig}">
+								<h:outputText value="System Settings" />
+							</p:commandLink>
+						</p:column>
+					</p:row>
+				</p:panelGrid>
+			</p:tab>
+		</p:accordionPanel>
+
+	</h:form>
+</ui:composition>

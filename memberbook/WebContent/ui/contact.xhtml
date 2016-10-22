@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<h:head>
+	<title>Contact Details</title>
+	<style type="text/css">
+.ui-widget {
+	font-size: 90%;
+}
+</style>
+</h:head>
+
+<h:body>
+	<h:form>
+		<p:growl id="growl" sticky="true" showDetail="true" showSummary="true" />
+		<p:panelGrid id="pnlContactDetails" style="margin-bottom:10px" styleClass="ui-noborder">
+			<p:row>
+				<p:column>
+					<h:outputLabel for="title" value="Title:" />
+				</p:column>
+				<p:column>
+					<p:selectOneMenu id="title" value="#{contactView.contact.title}" height="170" disabled="#{contactView.viewOnly}">
+						<f:selectItem itemLabel="Mr." itemValue="Mr." />
+						<f:selectItem itemLabel="Mrs." itemValue="Mrs." />
+						<f:selectItem itemLabel="Ms." itemValue="Ms." />
+						<f:selectItem itemLabel="Dr." itemValue="Dr." />
+						<f:selectItem itemLabel="Prof." itemValue="Prof." />
+					</p:selectOneMenu>
+				</p:column>
+				<p:column>
+					<h:outputLabel for="contactType" value="Type:" />
+				</p:column>
+				<p:column>
+					<p:selectOneMenu id="contactType" value="#{contactView.contact.contactType}" height="170">
+						<f:selectItem itemLabel="Select One" itemValue="" />
+						<f:selectItems value="#{contactView.contactTypeList}" />
+					</p:selectOneMenu>
+				</p:column>
+			</p:row>
+			<p:row>
+			</p:row>
+			<p:row>
+				<p:column>
+					<h:outputLabel for="firstName" value="First Name:" />
+				</p:column>
+				<p:column>
+					<p:inputText id="firstName" value="#{contactView.contact.firstName}" />
+				</p:column>
+				<p:column>
+					<h:outputLabel for="lastName" value="Last Name:" />
+				</p:column>
+				<p:column>
+					<p:inputText id="lastName" value="#{contactView.contact.lastName}" />
+				</p:column>
+			</p:row>
+			<p:row>
+				<p:column>
+					<h:outputLabel for="address1" value="Address 1:" />
+				</p:column>
+				<p:column colspan="3">
+					<p:inputText id="address1" value="#{contactView.contact.address1}" size="62" />
+				</p:column>
+			</p:row>
+			<p:row>
+				<p:column>
+					<h:outputLabel for="address2" value="Address 2:" />
+				</p:column>
+				<p:column colspan="3">
+					<p:inputText id="address2" value="#{contactView.contact.address2}" size="62" />
+				</p:column>
+			</p:row>
+			<p:row>
+				<p:column>
+					<h:outputLabel for="zipCode" value="Zip Code:" />
+				</p:column>
+				<p:column>
+					<p:inputText id="zipCode" value="#{contactView.contact.zipCode}" />
+				</p:column>
+				<p:column>
+					<h:outputLabel for="city" value="City:" />
+				</p:column>
+				<p:column>
+					<p:inputText id="city" value="#{contactView.contact.city}" />
+				</p:column>
+			</p:row>
+			<p:row>
+				<p:column>
+					<h:outputLabel for="countryCode" value="Country:" />
+				</p:column>
+				<p:column colspan="3">
+					<p:selectOneMenu id="countryCode" value="#{contactView.contact.countryCode}" height="170">
+						<f:selectItem itemLabel="Select Country" itemValue="" />
+						<f:selectItems value="#{contactView.countryList}" />
+					</p:selectOneMenu>
+				</p:column>
+			</p:row>
+			<p:row>
+				<p:column>
+					<h:outputLabel for="phone" value="Phone:" />
+				</p:column>
+				<p:column>
+					<p:inputText id="phone" value="#{contactView.contact.phone}" />
+				</p:column>
+				<p:column>
+					<h:outputLabel for="email" value="Email:" />
+				</p:column>
+				<p:column>
+					<p:inputText id="email" value="#{contactView.contact.email}" />
+				</p:column>
+			</p:row>
+			<p:row>
+				<p:column>
+					<h:outputLabel for="renewDate" value="Renew Date:" />
+				</p:column>
+				<p:column>
+					<p:inputText id="renewDate" value="#{contactView.contact.renewDate}" disabled="true"/>
+				</p:column>
+				<p:column>
+					<h:outputLabel for="expiryDate" value="Valid Till:" />
+				</p:column>
+				<p:column>
+					<p:inputText id="expiryDate" value="#{contactView.contact.expiryDate}" disabled="true"/>
+				</p:column>
+			</p:row>
+			<p:row>
+				<p:column>
+					<h:outputLabel for="comments" value="Comments:" />
+				</p:column>
+				<p:column colspan="3">
+					<h:inputTextarea id="comments" rows="2" cols="65" value="#{contactView.contact.comments}" />
+				</p:column>
+			</p:row>
+		</p:panelGrid>
+		<h:panelGrid style="height:10px" />
+		<p:separator />
+		<div align="center">
+			<p:commandButton value="OK" id="ok" actionListener="#{contactView.actionSave}" update="growl" />
+			<p:commandButton value="Cancel" id="cancel" actionListener="#{contactView.actionCancel()}" immediate="true" />
+		</div>
+		<!-- <p:commandButton value="Cancel" id="cancel" onclick="window.close()" /> -->
+	</h:form>
+</h:body>
+</html>

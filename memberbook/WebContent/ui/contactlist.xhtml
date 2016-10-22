@@ -1,0 +1,78 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:p="http://primefaces.org/ui">
+	<h:form id="frmContactList">
+		<p:toolbar>
+			<f:facet name="left">
+
+				<p:commandButton value="Add Contact" actionListener="#{contactListView.actionShowAddDialog}">
+					<p:ajax event="dialogReturn" update="frmContactList:contactList" />
+				</p:commandButton>
+				<p:commandButton value="Edit Contact" actionListener="#{contactListView.actionShowEditDialog}">
+					<p:ajax event="dialogReturn" update="frmContactList:contactList,growl" />
+				</p:commandButton>
+				<p:commandButton value="Account" actionListener="#{contactListView.actionShowAccountDialog}">
+					<p:ajax event="dialogReturn" update="frmContactList:contactList,growl" />
+				</p:commandButton>
+
+				<p:selectOneMenu id="filter" value="#{contactListView.selectedFilterId}">
+					<p:ajax listener="#{contactListView.onFilterChange}" update="frmContactList:contactList"/>
+					<f:selectItem itemLabel="Select Filter" itemValue="" />
+					<f:selectItems value="#{contactListView.filterList}" var="f" itemLabel="#{f.name}" itemValue="#{f.id}"/>
+				</p:selectOneMenu>
+ 
+				<!--		<p:commandButton value="Delete List" actionListener="#{learnlistView.deleteListAction}" immediate="true" update="growl, messages,frmLeftTree:leftTree"/>
+				<p:commandButton value="Add Words to List" actionListener="#{learnlistView.addWordToListAction}" update="contactList, growl, messages" />
+				<p:commandButton value="Delete Word from List" actionListener="#{learnlistView.deleteWordFromListAction}" update="contactList, growl, messages" />
+				<p:commandButton value="Edit Word" actionListener="#{learnlistView.editWordAction}" update="contactList" />
+				<p:commandButton value="Delete Word from System" actionListener="#{learnlistView.deleteWordFromSystemAction}" update="contactList" />
+				<p:commandButton value="Start Practice" id="practice" onclick="PF('dlgOptions').show();" type="button" />
+ -->
+			</f:facet>
+
+			<f:facet name="right">
+				<p:menuButton value="List Actions">
+					<p:menuitem value="Export" icon="ui-icon-close" ajax="false">
+						<p:fileDownload value="#{contactListView.exportFile}" contentDisposition="attachment" />
+					</p:menuitem>
+
+					<p:menuitem value="Send Mail" actionListener="#{contactListView.actionShowMailDialog}" icon="ui-icon-close" />
+				</p:menuButton>
+			</f:facet>
+
+		</p:toolbar>
+		<p:dataTable var="c" value="#{contactListView.contactList}" id="contactList" selectionMode="single" selection="#{contactListView.selectedContact}"
+			rowKey="#{c.contactId}" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+			paginator="true" rows="20" scrollable="true" paginatorPosition="bottom" dblClickSelect="true">
+			<p:ajax event="rowDblselect" listener="#{contactListView.onRowDblClck}" global="false" />
+			<!--  		<p:column selectionMode="single" style="width:16px;text-align:center" dblClickSelect="true"/> -->
+			<p:column headerText="Title" style="width:30px;">
+				<h:outputText value="#{c.title}" />
+			</p:column>
+			<p:column headerText="First Name" style="width:150px;">
+				<h:outputText value="#{c.firstName}" />
+			</p:column>
+			<p:column headerText="Last Name" style="width:150px;">
+				<h:outputText value="#{c.lastName}" />
+			</p:column>
+			<p:column headerText="Address">
+
+				<h:outputText value="#{c.fullAddress}" />
+				<!--  	<h:outputText value="#{c.address1} #{c.address2}" /> -->
+			</p:column>
+			<p:column headerText="Phone" style="width:150px;">
+				<h:outputText value="#{c.phone}" />
+			</p:column>
+			<p:column headerText="Email" style="width:200px;">
+				<h:outputText value="#{c.email}" />
+			</p:column>
+			<p:column headerText="ValidTill" style="width:80px;">
+				<h:outputText value="#{c.expiryDate}">
+					<f:converter converterId="expiryDateConverter" />
+				</h:outputText>
+			</p:column>
+			<p:column headerText="Type" style="width:80px;">
+				<h:outputText value="#{contactListView.getContactTypeDesc(c.contactType)}" />
+			</p:column>
+		</p:dataTable>
+	</h:form>
+</ui:composition>

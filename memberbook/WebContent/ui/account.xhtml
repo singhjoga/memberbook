@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<h:head>
+	<title>Account Details</title>
+	<style type="text/css">
+.ui-widget {
+	font-size: 90%;
+}
+
+.legerTableStyle {
+	height: 100px;
+}
+</style>
+</h:head>
+
+<h:body>
+	<h:form>
+		<p:growl id="growl" sticky="true" showDetail="true" showSummary="true" />
+		<p:panelGrid id="pnlAccountDetails" style="margin-bottom:10px" styleClass="ui-noborder">
+			<p:row>
+				<p:column>
+					<h:outputText value="Member:" />
+				</p:column>
+				<p:column colspan="3">
+					<h:outputText value="#{accountView.contact.title} #{accountView.contact.firstName} #{accountView.contact.lastName}" />
+				</p:column>
+			</p:row>
+			<p:row>
+				<p:column>
+					<h:outputText value="Address:" />
+				</p:column>
+				<p:column colspan="3">
+					<h:outputText value="#{accountView.contact.fullAddress}" />
+				</p:column>
+			</p:row>
+			<p:row>
+				<p:column>
+					<h:outputLabel for="renewDate" value="Renew Date:" />
+				</p:column>
+				<p:column>
+					<h:outputText id="renewDate" value="#{accountView.contact.renewDate}">
+						<f:converter converterId="dateConverter" />
+					</h:outputText>
+				</p:column>
+				<p:column>
+					<h:outputLabel for="expiryDate" value="Valid Till:" />
+				</p:column>
+				<p:column>
+					<h:outputText id="expiryDate" value="#{accountView.contact.expiryDate}" >
+						<f:converter converterId="dateConverter" />
+					</h:outputText>
+				</p:column>
+			</p:row>
+		</p:panelGrid>
+		<p:toolbar>
+			<f:facet name="left">
+				<p:commandButton value="Add Transaction" actionListener="#{accountView.actionShowAddDialog}">
+					<p:ajax event="dialogReturn" update="ledger" />
+				</p:commandButton>
+			</f:facet>
+		</p:toolbar>
+		<p:dataTable var="i" value="#{accountView.ledger}" id="ledger" selectionMode="single" selection="#{accountView.selectedItem}"
+			rowKey="#{i.contactId}" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+			paginator="true" rows="5" scrollable="true" paginatorPosition="bottom" dblClickSelect="true">
+			<p:column headerText="Date" style="width:40px;">
+				<h:outputText value="#{i.trDate}">
+					<f:converter converterId="dateConverter" />
+				</h:outputText>
+			</p:column>
+			<p:column headerText="Description" style="width:170px;">
+				<h:outputText value="#{i.fullDescription}" />
+			</p:column>
+			<p:column headerText="Payment" style="width:50px;text-align:right;">
+				<h:outputText value="#{i.trType.payment? i.amount: ''}">
+					<f:convertNumber pattern="#0.00" />
+				</h:outputText>
+			</p:column>
+			<p:column headerText="Receipt" style="width:50px;text-align:right;">
+				<h:outputText value="#{i.trType.receipt? i.amount: ''}">
+					<f:convertNumber pattern="#0.00" />
+				</h:outputText>
+			</p:column>
+		</p:dataTable>
+		<h:panelGrid style="height:10px" />
+		<p:separator />
+		<div align="center">
+			<p:commandButton value="Close" id="cancel" actionListener="#{accountView.actionClose()}" immediate="true" />
+		</div>
+	</h:form>
+</h:body>
+</html>
